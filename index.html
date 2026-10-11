@@ -1,0 +1,1722 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>USTOZ SHOW | Card Challenge</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #090d1b;
+      --panel: #151c31;
+      --purple: #a78bfa;
+      --cyan: #67e8f9;
+      --gold: #facc15;
+      --green: #4ade80;
+      --muted: #a5b0cc;
+    }
+
+    body {
+      min-height: 100vh;
+      padding: 22px;
+      color: #fff;
+      font-family: 'Outfit', sans-serif;
+      background:
+        radial-gradient(circle at 10% 5%, #382263 0, transparent 32%),
+        radial-gradient(circle at 90% 85%, #104052 0, transparent 30%),
+        var(--bg);
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      transition: .2s;
+    }
+
+    button:hover:not(:disabled) {
+      transform: translateY(-3px);
+      filter: brightness(1.12);
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+      opacity: .5;
+    }
+
+    .container {
+      width: min(1150px, 100%);
+      margin: auto;
+    }
+
+    header {
+      text-align: center;
+      padding: 20px 0 28px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 8px 16px;
+      border: 1px solid #67e8f944;
+      border-radius: 30px;
+      color: var(--cyan);
+      background: #67e8f911;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 3px;
+      margin-bottom: 15px;
+    }
+
+    h1 {
+      font-size: clamp(42px, 8vw, 78px);
+      font-weight: 900;
+      letter-spacing: -3px;
+      line-height: 1;
+      background: linear-gradient(110deg, white, var(--purple), var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      margin-top: 13px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .stat {
+      padding: 16px 8px;
+      border: 1px solid #ffffff15;
+      border-radius: 17px;
+      background: #151c31dd;
+      text-align: center;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 29px;
+      color: var(--cyan);
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .panel {
+      padding: clamp(20px, 4vw, 38px);
+      border: 1px solid #ffffff19;
+      border-radius: 25px;
+      background: linear-gradient(145deg, #18203a, #101628);
+      box-shadow: 0 25px 80px #0005;
+    }
+
+    .center {
+      text-align: center;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .emoji {
+      font-size: 60px;
+      margin-bottom: 16px;
+    }
+
+    h2 {
+      font-size: clamp(25px, 4vw, 38px);
+      margin-bottom: 12px;
+    }
+
+    .description {
+      max-width: 650px;
+      margin: 0 auto 24px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .primary {
+      padding: 15px 24px;
+      border-radius: 13px;
+      color: white;
+      font-weight: 800;
+      background: linear-gradient(100deg, #8b5cf6, #6366f1);
+      box-shadow: 0 8px 28px #8b5cf633;
+    }
+
+    .secondary {
+      padding: 12px 18px;
+      border: 1px solid #ffffff22;
+      border-radius: 12px;
+      background: #ffffff0c;
+      color: white;
+      font-weight: 700;
+    }
+
+    input {
+      width: min(450px, 100%);
+      padding: 14px;
+      margin: 0 auto 20px;
+      display: block;
+      color: white;
+      background: #090d1b;
+      border: 1px solid #ffffff25;
+      border-radius: 12px;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: var(--purple);
+    }
+
+    .game-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .pill {
+      padding: 9px 14px;
+      border: 1px solid #ffffff17;
+      border-radius: 30px;
+      background: #ffffff08;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .section-title {
+      margin: 25px 0 15px;
+      font-size: 16px;
+      color: var(--muted);
+      text-align: left;
+    }
+
+    .card-show-header {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin: 22px 0 20px;
+      padding: 24px 26px;
+      overflow: hidden;
+      border: 1px solid #a78bfa66;
+      border-radius: 22px;
+      background: radial-gradient(circle at 5% 50%, #8b5cf644, transparent 35%),
+        radial-gradient(circle at 100% 0%, #22d3ee22, transparent 40%),
+        linear-gradient(120deg, #17152f, #101a30);
+      box-shadow: 0 12px 35px #0005, inset 0 0 25px #a78bfa0b;
+    }
+
+    .card-show-header::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 15%;
+      width: 4px;
+      height: 70%;
+      border-radius: 5px;
+      background: linear-gradient(#c4b5fd, #67e8f9, #facc15);
+      box-shadow: 0 0 18px #a78bfa;
+    }
+
+    .show-icon {
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      width: 58px;
+      height: 58px;
+      border: 1px solid #facc1566;
+      border-radius: 18px;
+      color: #facc15;
+      background: linear-gradient(145deg, #facc1522, #a78bfa22);
+      font-size: 38px;
+      animation: showGlow 2s infinite alternate;
+    }
+
+    .show-content {
+      flex: 1;
+    }
+
+    .show-label {
+      color: #67e8f9;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 2.5px;
+    }
+
+    .show-content h2 {
+      margin: 7px 0;
+      font-size: clamp(22px, 3.5vw, 34px);
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+
+    .show-content h2 span {
+      color: #c4b5fd;
+    }
+
+    .show-content p {
+      color: #a5b0cc;
+      font-size: 13px;
+    }
+
+    .show-number {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #facc15;
+      font-size: 35px;
+      font-weight: 900;
+    }
+
+    .show-number span {
+      color: #a5b0cc;
+      font-size: 9px;
+      letter-spacing: 2px;
+    }
+
+    @keyframes showGlow {
+      from {
+        box-shadow: 0 0 5px #a78bfa22;
+        transform: rotate(-3deg);
+      }
+
+      to {
+        box-shadow: 0 0 22px #a78bfa66;
+        transform: rotate(3deg);
+      }
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .card {
+      --card-accent: #a78bfa;
+      position: relative;
+      isolation: isolate;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      min-height: 158px;
+      padding: 18px 8px 14px;
+      overflow: hidden;
+      border: 1px solid color-mix(in srgb, var(--card-accent) 65%, transparent);
+      border-radius: 20px;
+      color: #fff;
+      background:
+        radial-gradient(ellipse at 50% -15%, color-mix(in srgb, var(--card-accent) 48%, transparent), transparent 65%),
+        linear-gradient(145deg, #202744 0%, #11182c 58%, #0b1020 100%);
+      box-shadow: 0 12px 25px #0005, inset 0 1px 0 #ffffff24;
+      transform-style: preserve-3d;
+      transition: transform .28s ease, box-shadow .28s ease, border-color .28s ease;
+    }
+
+    .card.question-card,
+    .card.challenge-card {
+      --card-accent: #a78bfa;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      inset: 6px;
+      border: 1px solid #ffffff13;
+      border-radius: 15px;
+      pointer-events: none;
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      top: -70%;
+      left: -60%;
+      width: 65%;
+      height: 240%;
+      transform: rotate(28deg);
+      background: linear-gradient(90deg, transparent, #ffffff12, transparent);
+      transition: left .55s ease;
+      pointer-events: none;
+    }
+
+    .card:hover:not(:disabled) {
+      transform: translateY(-8px) rotateX(5deg) scale(1.025);
+      border-color: var(--card-accent);
+      box-shadow: 0 18px 32px #0007, 0 0 22px color-mix(in srgb, var(--card-accent) 22%, transparent), inset 0 1px 0 #ffffff35;
+    }
+
+    .card:hover:not(:disabled)::after {
+      left: 120%;
+    }
+
+    .card-topline {
+      position: absolute;
+      top: 12px;
+      left: 14px;
+      right: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #b8c2dc;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+    }
+
+    .card-gem {
+      display: grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      margin-top: 8px;
+      border: 1px solid color-mix(in srgb, var(--card-accent) 65%, transparent);
+      border-radius: 15px;
+      color: var(--card-accent);
+      background: color-mix(in srgb, var(--card-accent) 12%, #101629);
+      box-shadow: 0 0 24px color-mix(in srgb, var(--card-accent) 15%, transparent), inset 0 1px 0 #ffffff20;
+      font-size: 25px;
+    }
+
+    .card-number {
+      display: block;
+      font-size: 31px;
+      line-height: 1;
+      font-weight: 900;
+      letter-spacing: -1px;
+      color: #fff;
+      text-shadow: 0 0 18px color-mix(in srgb, var(--card-accent) 45%, transparent);
+    }
+
+    .card small {
+      padding: 5px 9px;
+      border: 1px solid color-mix(in srgb, var(--card-accent) 32%, transparent);
+      border-radius: 30px;
+      color: var(--card-accent);
+      background: color-mix(in srgb, var(--card-accent) 9%, transparent);
+      font-size: 8px;
+      font-weight: 900;
+      letter-spacing: 1.6px;
+    }
+
+    .card.used {
+      --card-accent: #4ade80;
+      background: linear-gradient(145deg, #152b2b, #101b28);
+      border-color: #4ade8040;
+      box-shadow: inset 0 1px 0 #ffffff12;
+      opacity: .58;
+    }
+
+    .card.used .card-gem {
+      color: var(--green);
+      border-color: #4ade8055;
+      background: #4ade8012;
+      box-shadow: none;
+    }
+
+    .card.used .card-number {
+      color: #bbf7d0;
+    }
+
+    .card.used small {
+      color: #86efac;
+      border-color: #4ade8033;
+    }
+
+    .card:disabled {
+      transform: none;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .card:not(.used) .card-gem {
+        animation: cardPulse 2.8s ease-in-out infinite;
+      }
+
+      .card:nth-child(3n) .card-gem {
+        animation-delay: .6s;
+      }
+
+      .card:nth-child(3n + 1) .card-gem {
+        animation-delay: 1.2s;
+      }
+    }
+
+    @keyframes cardPulse {
+
+      0%,
+      100% {
+        box-shadow: 0 0 12px color-mix(in srgb, var(--card-accent) 12%, transparent);
+      }
+
+      50% {
+        box-shadow: 0 0 24px color-mix(in srgb, var(--card-accent) 32%, transparent);
+      }
+    }
+
+    .tip {
+      margin-top: 20px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .task-box {
+      text-align: center;
+    }
+
+    .task-type {
+      display: inline-block;
+      padding: 9px 15px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 2px;
+    }
+
+    .type-question {
+      color: #c4b5fd;
+      background: #8b5cf622;
+      border: 1px solid #8b5cf655;
+    }
+
+    .type-challenge {
+      color: var(--gold);
+      background: #facc1515;
+      border: 1px solid #facc1544;
+    }
+
+    .task-text {
+      font-size: clamp(23px, 4vw, 38px);
+      font-weight: 800;
+      line-height: 1.45;
+      margin: 0 auto 25px;
+      max-width: 800px;
+    }
+
+    .options {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .option {
+      padding: 16px;
+      text-align: left;
+      border: 1px solid #ffffff20;
+      border-radius: 13px;
+      background: #ffffff08;
+      color: white;
+      font-size: 15px;
+    }
+
+    .option b {
+      display: inline-grid;
+      place-items: center;
+      width: 29px;
+      height: 29px;
+      margin-right: 8px;
+      border-radius: 8px;
+      color: var(--purple);
+      background: #a78bfa22;
+    }
+
+    .option.correct {
+      border-color: var(--green);
+      background: #4ade801c;
+    }
+
+    .option.wrong {
+      border-color: #fb7185;
+      background: #fb71851c;
+    }
+
+    .feedback {
+      min-height: 30px;
+      margin: 20px auto;
+      line-height: 1.7;
+      font-weight: 700;
+    }
+
+    .success {
+      color: var(--green);
+    }
+
+    .failure {
+      color: #fda4af;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 22px;
+    }
+
+    .player-name {
+      color: var(--cyan);
+      font-weight: 800;
+    }
+
+    .score-result {
+      margin: 22px auto;
+      max-width: 500px;
+      padding: 24px;
+      border: 1px solid #ffffff18;
+      border-radius: 18px;
+      background: #ffffff08;
+    }
+
+    .big-score {
+      font-size: 46px;
+      font-weight: 900;
+      color: var(--gold);
+    }
+
+    footer {
+      padding: 25px 0 5px;
+      text-align: center;
+      color: #7583a3;
+      font-size: 11px;
+      letter-spacing: 2px;
+    }
+
+    @media (max-width: 850px) {
+      .cards {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 520px) {
+      body {
+        padding: 10px;
+      }
+
+      .cards {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      .card {
+        min-height: 137px;
+        padding: 17px 5px 12px;
+      }
+
+      .card-show-header {
+        gap: 10px;
+        padding: 18px 13px;
+      }
+
+      .show-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 27px;
+        border-radius: 12px;
+      }
+
+      .show-label {
+        font-size: 7px;
+        letter-spacing: 1px;
+      }
+
+      .show-content h2 {
+        font-size: 18px;
+        letter-spacing: 0;
+      }
+
+      .show-content p {
+        font-size: 10px;
+      }
+
+      .show-number {
+        font-size: 23px;
+      }
+
+      .show-number span {
+        font-size: 7px;
+        letter-spacing: 1px;
+      }
+
+      .card-gem {
+        width: 39px;
+        height: 39px;
+        font-size: 21px;
+      }
+
+      .card-number {
+        font-size: 27px;
+      }
+
+      .card-topline {
+        left: 9px;
+        right: 9px;
+        font-size: 7px;
+        letter-spacing: .8px;
+      }
+
+      .options {
+        grid-template-columns: 1fr;
+      }
+
+      .stats {
+        gap: 7px;
+      }
+
+      .stat strong {
+        font-size: 23px;
+      }
+
+      .stat span {
+        font-size: 9px;
+      }
+    }
+
+
+    /* FESTIVE PREMIUM REDESIGN — warm, joyful and unified mystery cards */
+    :root {
+      --bg: #100d20;
+      --panel: #1c1730;
+      --purple: #e6b8ff;
+      --cyan: #8de9f2;
+      --gold: #ffd98b;
+      --green: #77edb0;
+      --muted: #c2bdd6;
+    }
+
+    body {
+      position: relative;
+      overflow-x: hidden;
+      background:
+        radial-gradient(ellipse at 12% 8%, #7845a94d 0, transparent 34%),
+        radial-gradient(ellipse at 90% 18%, #e66e9d26 0, transparent 29%),
+        radial-gradient(ellipse at 50% 100%, #edb95b18 0, transparent 38%),
+        #100d20;
+    }
+
+    body::before,
+    body::after {
+      content: "✦　·　✧　·　✦　·　✧　·　✦";
+      position: fixed;
+      z-index: -1;
+      color: #ffe3a333;
+      font-size: 25px;
+      letter-spacing: 18px;
+      white-space: nowrap;
+      pointer-events: none;
+      animation: drift 24s linear infinite;
+    }
+
+    body::before {
+      top: 18%;
+      left: -10%;
+    }
+
+    body::after {
+      bottom: 15%;
+      right: -10%;
+      color: #e6b8ff2b;
+      animation-direction: reverse;
+    }
+
+    @keyframes drift {
+      from {
+        transform: translateX(-5%) rotate(-4deg);
+      }
+
+      to {
+        transform: translateX(14%) rotate(4deg);
+      }
+    }
+
+    header {
+      padding: 30px 0 30px;
+    }
+
+    .badge {
+      color: #ffe1a4;
+      border-color: #ffd98b66;
+      background: linear-gradient(90deg, #ffd98b16, #e6b8ff16);
+      box-shadow: 0 0 30px #ffd98b0b;
+    }
+
+    h1 {
+      letter-spacing: -4px;
+      background: linear-gradient(100deg, #fff8e9 4%, #ffd98b 34%, #f4b5e8 64%, #a8f2f2 94%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 8px 26px #e6b8ff17);
+    }
+
+    .subtitle {
+      color: #ddd5ef;
+      font-size: clamp(14px, 2vw, 17px);
+    }
+
+    .celebrate-line {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 13px;
+      margin: 20px auto 0;
+      color: #ffe1a4;
+      font-size: 9px;
+      font-weight: 900;
+      letter-spacing: 2.2px;
+    }
+
+    .celebrate-line span {
+      color: #f4b5e8;
+      font-size: 16px;
+    }
+
+    .stats {
+      gap: 14px;
+    }
+
+    .stat {
+      position: relative;
+      overflow: hidden;
+      padding: 19px 10px;
+      border-color: #e6b8ff24;
+      border-radius: 20px;
+      background: linear-gradient(145deg, #251d3d, #171329);
+      box-shadow: 0 12px 30px #0002, inset 0 1px #ffffff0c;
+    }
+
+    .stat::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 14%;
+      width: 72%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #ffe1a4aa, transparent);
+    }
+
+    .stat strong {
+      color: #ffe1a4;
+      text-shadow: 0 0 22px #ffd98b26;
+    }
+
+    .stat span {
+      color: #c6bedf;
+    }
+
+    .panel {
+      position: relative;
+      overflow: hidden;
+      border-color: #e6b8ff2b;
+      border-radius: 30px;
+      background: linear-gradient(145deg, #211a38f5, #151226f7);
+      box-shadow: 0 30px 100px #0006, inset 0 1px 0 #ffffff10;
+    }
+
+    .panel::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 15%;
+      width: 70%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #f5dca8aa, #e6b8ffaa, transparent);
+    }
+
+    .panel>section {
+      position: relative;
+      z-index: 1;
+    }
+
+    .welcome-art {
+      position: relative;
+      width: 116px;
+      height: 106px;
+      margin: 0 auto 7px;
+      display: grid;
+      place-items: center;
+    }
+
+    .welcome-icon {
+      display: grid;
+      place-items: center;
+      width: 82px;
+      height: 82px;
+      border-radius: 28px;
+      font-size: 43px;
+      background: linear-gradient(145deg, #ffe6a82b, #e6b8ff25);
+      border: 1px solid #ffe1a466;
+      box-shadow: 0 12px 35px #0003, 0 0 38px #ffd98b14, inset 0 1px #ffffff28;
+      transform: rotate(-5deg);
+      animation: giftFloat 3s ease-in-out infinite;
+    }
+
+    @keyframes giftFloat {
+
+      0%,
+      100% {
+        transform: translateY(0) rotate(-5deg);
+      }
+
+      50% {
+        transform: translateY(-5px) rotate(4deg);
+      }
+    }
+
+    .welcome-spark {
+      position: absolute;
+      color: #ffe1a4;
+      font-size: 23px;
+      animation: sparkle 2s ease-in-out infinite;
+    }
+
+    .spark-a {
+      top: 2px;
+      left: 7px;
+    }
+
+    .spark-b {
+      top: 18px;
+      right: 2px;
+      color: #f4b5e8;
+      animation-delay: .6s;
+    }
+
+    .spark-c {
+      bottom: 2px;
+      right: 10px;
+      color: #8de9f2;
+      animation-delay: 1s;
+    }
+
+    @keyframes sparkle {
+
+      0%,
+      100% {
+        opacity: .45;
+        transform: scale(.8) rotate(0);
+      }
+
+      50% {
+        opacity: 1;
+        transform: scale(1.2) rotate(20deg);
+      }
+    }
+
+    .eyebrow {
+      color: #e6b8ff;
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 3px;
+      margin: 7px 0 10px;
+    }
+
+    #startScreen h2 {
+      color: #fff5e7;
+    }
+
+    .description {
+      color: #c9c2dc;
+    }
+
+    .primary {
+      color: #25152e;
+      background: linear-gradient(105deg, #ffe3a0, #f3b8dc 52%, #b8f3f0);
+      box-shadow: 0 10px 30px #e6b8ff20, inset 0 1px #ffffffb3;
+      border: 1px solid #ffffff6b;
+    }
+
+    .primary:hover:not(:disabled) {
+      box-shadow: 0 13px 35px #e6b8ff35;
+    }
+
+    .secondary {
+      border-color: #e6b8ff35;
+      background: linear-gradient(135deg, #ffffff0c, #e6b8ff0b);
+    }
+
+    input {
+      background: #100d20;
+      border-color: #e6b8ff35;
+    }
+
+    input::placeholder {
+      color: #8f88a9;
+    }
+
+    input:focus {
+      border-color: #e6b8ff;
+      box-shadow: 0 0 0 4px #e6b8ff12;
+    }
+
+    .card-show-header {
+      border-color: #ffe1a45c;
+      background: radial-gradient(circle at 7% 50%, #e6b8ff35, transparent 35%), radial-gradient(circle at 100% 0%, #8de9f226, transparent 42%), linear-gradient(120deg, #2a2043, #17152e);
+      box-shadow: 0 16px 38px #0003, inset 0 1px #ffffff13;
+    }
+
+    .show-icon {
+      color: #ffe1a4;
+      border-color: #ffe1a466;
+      background: linear-gradient(145deg, #ffd98b24, #e6b8ff24);
+    }
+
+    .show-label {
+      color: #a8f2f2;
+    }
+
+    .show-content h2 span {
+      color: #f4b5e8;
+    }
+
+    .show-content p {
+      color: #c2bdd6;
+    }
+
+    .show-number {
+      color: #ffe1a4;
+    }
+
+    /* All unopened cards intentionally share one identical visual style. */
+    .card,
+    .card.question-card,
+    .card.challenge-card {
+      --card-accent: #e7c5ff;
+      border-color: #dcb9f65c;
+      border-radius: 22px;
+      background: radial-gradient(ellipse at 50% -15%, #d9a8ff30, transparent 65%), linear-gradient(150deg, #302448 0%, #211a35 58%, #171328 100%);
+      box-shadow: 0 13px 26px #0004, inset 0 1px 0 #ffffff1b;
+    }
+
+    .card:nth-child(4n+2),
+    .card:nth-child(4n+3) {
+      background: radial-gradient(ellipse at 50% -15%, #ffe2a51e, transparent 65%), linear-gradient(150deg, #302448 0%, #211a35 58%, #171328 100%);
+    }
+
+    .card:hover:not(:disabled) {
+      border-color: #ffe1a4;
+      box-shadow: 0 20px 36px #0005, 0 0 27px #e6b8ff20, inset 0 1px 0 #ffffff35;
+    }
+
+    .card::before {
+      border-color: #ffffff18;
+      border-radius: 17px;
+    }
+
+    .card-gem {
+      color: #ffe1a4;
+      border-color: #ffe1a45c;
+      background: linear-gradient(145deg, #ffe1a41c, #e6b8ff17);
+    }
+
+    .card-number {
+      color: #fff7e9;
+      text-shadow: 0 0 22px #ffe1a42b;
+    }
+
+    .card small {
+      color: #e9c9ff;
+      border-color: #e6b8ff38;
+      background: #e6b8ff0d;
+    }
+
+    .card.used {
+      --card-accent: #77edb0;
+      border-color: #77edb04a;
+    }
+
+    .pill {
+      color: #d5cce8;
+      border-color: #e6b8ff20;
+      background: #ffffff07;
+    }
+
+    .task-type {
+      border-radius: 30px;
+    }
+
+    .task-text {
+      color: #fff6eb;
+    }
+
+    .option {
+      border-radius: 16px;
+      background: #ffffff07;
+    }
+
+    .option:hover:not(:disabled) {
+      border-color: #e6b8ff80;
+      background: #e6b8ff0e;
+    }
+
+    .score-result {
+      border-color: #ffe1a42e;
+      background: linear-gradient(135deg, #ffe1a40b, #e6b8ff0b);
+    }
+
+    .big-score {
+      color: #ffe1a4;
+    }
+
+    footer {
+      color: #a59bbf;
+      letter-spacing: 1.6px;
+    }
+
+    .footer-heart {
+      color: #f4b5dc;
+      font-size: 14px;
+    }
+
+    .footer-dot {
+      color: #ffe1a4;
+      padding: 0 5px;
+    }
+
+    .author-signature {
+      width: min(470px, 100%);
+      margin: 22px auto 0;
+      padding: 15px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-align: left;
+      border: 1px solid #8be9ff35;
+      border-radius: 18px;
+      background: linear-gradient(120deg, #111a2bde, #19132ade);
+      box-shadow: 0 10px 35px #0003, inset 0 1px 0 #ffffff0d;
+      letter-spacing: normal;
+    }
+
+    .author-mark {
+      width: 48px;
+      height: 48px;
+      flex: 0 0 48px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      color: #09131c;
+      font-size: 14px;
+      font-weight: 1000;
+      background: linear-gradient(135deg, #8be9ff, #b7a0ff 58%, #ffe1a4);
+      box-shadow: 0 0 24px #8be9ff25;
+    }
+
+    .author-copy {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 0;
+    }
+
+    .author-kicker {
+      color: #8be9ff;
+      font-size: 9px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .author-name {
+      color: #fff6eb;
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: .5px;
+    }
+
+    .author-role {
+      color: #aebbd2;
+      font-size: 10px;
+      line-height: 1.5;
+      letter-spacing: .4px;
+    }
+
+    .author-code {
+      margin-left: auto;
+      color: #8be9ff8c;
+      font-size: 20px;
+      font-weight: 900;
+    }
+
+    .tip {
+      color: #b9b1d1;
+    }
+
+    @media (max-width:520px) {
+      .celebrate-line {
+        font-size: 7px;
+        letter-spacing: 1px;
+        gap: 7px;
+      }
+
+      .welcome-art {
+        transform: scale(.9);
+        margin-bottom: 0;
+      }
+
+      .eyebrow {
+        font-size: 8px;
+        letter-spacing: 2px;
+      }
+
+      .card {
+        border-radius: 17px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <header>
+      <div class="badge">8-SINF • USTOZLAR KUNI MAXSUS LOYIHASI</div>
+      <h1>USTOZ SHOW</h1>
+      <p class="subtitle">Mehr, kulgu va kutilmagan syurprizlarga boy bayram! ✨</p>
+      <div class="celebrate-line"><span>✦</span> BUGUNGI KUN — USTOZLARIMIZGA BAG‘ISHLANADI <span>✦</span></div>
+    </header>
+
+    <div class="stats">
+      <div class="stat">
+        <strong id="remaining">24</strong>
+        <span>Qolgan kartochka</span>
+      </div>
+      <div class="stat">
+        <strong id="done">0</strong>
+        <span>Bajarilgan</span>
+      </div>
+      <div class="stat">
+        <strong id="score">0</strong>
+        <span>Jami ball</span>
+      </div>
+    </div>
+
+    <div class="panel">
+
+      <section id="startScreen" class="center">
+        <div class="welcome-art"><span class="welcome-spark spark-a">✦</span><span
+            class="welcome-spark spark-b">✧</span>
+          <div class="welcome-icon">🎁</div><span class="welcome-spark spark-c">✦</span>
+        </div>
+        <div class="eyebrow">KICHIK O‘YIN • KATTA TABASSUM</div>
+        <h2>Quvonchga tayyormisiz?</h2>
+        <p class="description">
+          Har bir raqam ortida kichik bir syurpriz yashiringan. Kartochkani o‘zingiz tanlang, jamoangiz bilan quvoning
+          va ustozlarimizga bayram kayfiyatini ulashing!
+          To‘g‘ri javob yoki bajarilgan topshiriq uchun 1 ball!
+        </p>
+
+        <input id="playerInput" placeholder="Ishtirokchi ismi yoki jamoa nomi">
+
+        <button class="primary" onclick="startGame()">🚀 SHOUNI BOSHLASH</button>
+
+        <p class="tip">
+          📌 Savolga javob berilmasa yoki shart bajarilmasa — 0 ball.
+          Kartochka qayta ochilmaydi.
+        </p>
+      </section>
+
+      <section id="boardScreen" class="hidden">
+
+        <div class="game-heading">
+          <span class="pill">👤 <span id="playerName" class="player-name"></span></span>
+          <span class="pill">🎯 O‘zingiz istagan kartochkani tanlang</span>
+        </div>
+
+        <div class="card-show-header">
+          <div class="show-icon">✦</div>
+          <div class="show-content">
+            <span class="show-label">USTOZ SHOW • CHALLENGE ZONE</span>
+            <h2>OMAD <span>KARTOCHKASI</span></h2>
+            <p>Tanla. Och. Bilimingni namoyish et!</p>
+          </div>
+          <div class="show-number">24<span>TA KARTA</span></div>
+        </div>
+        <div class="cards" id="cards"></div>
+
+        <p class="tip">
+          🟣 Kartochka hali ochilmagan.
+          <br>🟢 Ishlatilgan kartochka qayta tanlanmaydi.
+          <br>🎲 Savol yoki shart ekanini kartochka ochilganda bilib olasiz!
+        </p>
+
+        <div class="actions">
+          <button class="secondary" onclick="newGame()">🔄 Yangi o‘yin</button>
+        </div>
+      </section>
+
+      <section id="taskScreen" class="hidden task-box">
+        <div class="game-heading">
+          <span class="pill" id="chosenNumber">KARTOCHKA</span>
+          <span class="pill" id="taskCounter">1 / 24</span>
+        </div>
+
+        <div id="taskType" class="task-type"></div>
+        <div id="taskText" class="task-text"></div>
+
+        <div class="options" id="options"></div>
+        <div id="feedback" class="feedback"></div>
+
+        <p id="taskHint" class="tip"></p>
+
+        <div id="challengeActions" class="actions hidden">
+          <button class="primary" onclick="finishChallenge(true)">✅ SHARTNI BAJARDIM (+1)</button>
+          <button class="secondary" onclick="finishChallenge(false)">❌ BAJARA OLMADIM (0)</button>
+        </div>
+
+        <div class="actions">
+          <button class="secondary" id="backBtn" onclick="backToBoard()" disabled>
+            🎴 Kartochkalarga qaytish
+          </button>
+        </div>
+      </section>
+
+      <section id="endScreen" class="center hidden">
+        <div class="emoji">🏆</div>
+        <h2>SHOU YAKUNLANDI!</h2>
+        <p class="description" id="finalMessage"></p>
+
+        <div class="score-result">
+          <div class="big-score" id="finalScore">0 / 24</div>
+          <p id="finalPercent"></p>
+        </div>
+
+        <p class="description">
+          Aziz ustozlar! Sizning mehnatingiz, sabringiz va bilimingiz kelajagimiz poydevoridir.
+          <br><strong style="color:var(--gold)">Bayramingiz muborak! ❤️</strong>
+        </p>
+
+        <button class="primary" onclick="newGame()">🎲 YANGI O‘YIN</button>
+      </section>
+
+    </div>
+
+    <footer>
+      <div><span class="footer-heart">♥</span> USTOZ SHOW <span class="footer-dot">✦</span> 8-SINF <span
+          class="footer-dot">✦</span> MEHR BILAN TAYYORLANDI <span class="footer-heart">♥</span></div>
+      <div class="author-signature" aria-label="Loyiha muallifi">
+        <div class="author-mark">BJ<span style="font-size:8px">.DEV</span></div>
+        <div class="author-copy">
+          <span class="author-kicker">LOYIHA MUALLIFI · YOSH DASTURCHI</span>
+          <span class="author-name">BAHODIROV JAHONGIR</span>
+          <span class="author-role">8-D sinf o‘quvchisi · G‘oya, dizayn va kod muallifi</span>
+        </div>
+        <div class="author-code">&lt;/&gt;</div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const tasks = [
+      {
+        type: "question",
+        text: "Jism 120 metr masofani 20 sekundda bosib o‘tdi. Uning tezligi qancha?",
+        options: ["4 m/s", "6 m/s", "8 m/s", "10 m/s"],
+        answer: 1,
+        explanation: "v = s / t = 120 / 20 = 6 m/s."
+      },
+      {
+        type: "question",
+        text: "Atom yadrosida qaysi zarrachalar mavjud?",
+        options: ["Proton va neytron", "Faqat elektron", "Elektron va proton", "Faqat neytron"],
+        answer: 0,
+        explanation: "Atom yadrosi proton va neytronlardan tashkil topgan."
+      },
+      {
+        type: "question",
+        text: "Fotosintez uchun o‘simlikka nimalar kerak?",
+        options: ["Faqat tuproq", "Faqat kislorod", "Yorug‘lik, suv va karbonat angidrid", "Faqat issiqlik"],
+        answer: 2,
+        explanation: "Fotosintezda yorug‘lik, suv va karbonat angidrid ishtirok etadi."
+      },
+      {
+        type: "question",
+        text: "Suvning kimyoviy formulasi qaysi?",
+        options: ["CO₂", "NaCl", "O₂", "H₂O"],
+        answer: 3,
+        explanation: "Suv molekulasi ikki vodorod va bir kislorod atomidan iborat."
+      },
+      {
+        type: "question",
+        text: "3x + 7 = 22 tenglamada x ni toping.",
+        options: ["3", "5", "7", "9"],
+        answer: 1,
+        explanation: "3x = 22 − 7 = 15; x = 5."
+      },
+      {
+        type: "question",
+        text: "Yer atmosferasida eng ko‘p uchraydigan gaz qaysi?",
+        options: ["Kislorod", "Azot", "Vodorod", "Karbonat angidrid"],
+        answer: 1,
+        explanation: "Atmosferaning taxminan 78 foizini azot tashkil etadi."
+      },
+      {
+        type: "question",
+        text: "O‘zbekiston Mustaqillik kuni qachon nishonlanadi?",
+        options: ["1-sentabr", "8-dekabr", "21-mart", "9-may"],
+        answer: 0,
+        explanation: "Mustaqillik kuni 1-sentabrda nishonlanadi."
+      },
+      {
+        type: "question",
+        text: "O‘zbek tilida nechta kelishik bor?",
+        options: ["4 ta", "5 ta", "6 ta", "7 ta"],
+        answer: 2,
+        explanation: "O‘zbek tilida 6 ta kelishik mavjud."
+      },
+      {
+        type: "question",
+        text: "Elektr toki kuchi qaysi birlikda o‘lchanadi?",
+        options: ["Volt", "Om", "Vatt", "Amper"],
+        answer: 3,
+        explanation: "Elektr toki kuchining birligi — amper."
+      },
+      {
+        type: "question",
+        text: "O‘zbekiston poytaxti qaysi shahar?",
+        options: ["Samarqand", "Toshkent", "Buxoro", "Andijon"],
+        answer: 1,
+        explanation: "O‘zbekiston poytaxti — Toshkent."
+      },
+      {
+        type: "question",
+        text: "Alisher Navoiyning besh dostondan iborat mashhur asarlar turkumi nima?",
+        options: ["Boburnoma", "Devonu lug‘otit turk", "Xamsa", "O‘tkan kunlar"],
+        answer: 2,
+        explanation: "Alisher Navoiyning besh dostondan iborat turkumi — Xamsa."
+      },
+      {
+        type: "question",
+        text: "Ingliz tilida “I have finished my homework” gapining tarjimasi qaysi?",
+        options: [
+          "Men uy vazifamni tugatdim",
+          "Men uy vazifamni bajaryapman",
+          "Men uy vazifamni boshlayman",
+          "Men uyga ketyapman"
+        ],
+        answer: 0,
+        explanation: "Bu gap: Men uy vazifamni tugatdim, degan ma’noni anglatadi."
+      },
+
+      {
+        type: "challenge",
+        text: "🎭 Biror ustozingizning dars o‘tish uslubini hurmat bilan, hazil aralash taqlid qilib ko‘rsating.",
+        hint: "20 soniya. Hech kimni xafa qilmaymiz!"
+      },
+      {
+        type: "challenge",
+        text: "💐 Ustozingizga bag‘ishlab 3 ta chiroyli tilak ayting.",
+        hint: "15 soniya. Samimiylik muhim!"
+      },
+      {
+        type: "challenge",
+        text: "📚 10 soniyada 5 ta maktab fani nomini ayting.",
+        hint: "Bir xil fanni ikki marta aytish mumkin emas."
+      },
+      {
+        type: "challenge",
+        text: "🎤 Ustozlar haqida 4 misradan iborat she’r to‘qing.",
+        hint: "30 soniya. O‘z ijodingizdan foydalaning!"
+      },
+      {
+        type: "challenge",
+        text: "🧠 “Bilim”, “kitob” va “ustoz” so‘zlarini ishlatib bitta mazmunli gap tuzing.",
+        hint: "15 soniya."
+      },
+      {
+        type: "challenge",
+        text: "😂 Maktabdagi kulgili, lekin odobli bir voqeani aytib bering.",
+        hint: "20 soniya. Barchaga yoqimli bo‘lsin!"
+      },
+      {
+        type: "challenge",
+        text: "🎬 “Men kelajakda...” jumlasini davom ettirib, orzu qilgan kasbingizni tasvirlang.",
+        hint: "20 soniya."
+      },
+      {
+        type: "challenge",
+        text: "👏 Sinfdoshingizning kamida 3 ta yaxshi fazilatini ayting.",
+        hint: "15 soniya. Samimiy bo‘ling!"
+      },
+      {
+        type: "challenge",
+        text: "🌟 “USTOZ” so‘zining har bir harfiga mos ijobiy so‘z toping.",
+        hint: "25 soniya. Masalan, U — ulug‘!"
+      },
+      {
+        type: "challenge",
+        text: "🎙️ O‘zingizni bir daqiqaga maktab direktori deb tasavvur qiling. Maktab uchun bitta yaxshi yangilik e’lon qiling.",
+        hint: "20 soniya."
+      },
+      {
+        type: "challenge",
+        text: "❤️ Ustozingizga minnatdorlik bildiradigan samimiy gap ayting.",
+        hint: "15 soniya."
+      },
+      {
+        type: "challenge",
+        text: "🎨 Doskaga 30 soniyada ustozlar bayramiga mos rasm chizing.",
+        hint: "Gul, kitob, quyosh yoki boshqa ramz chizishingiz mumkin."
+      }
+    ];
+
+    let deck = [];
+    let used = new Set();
+    let currentIndex = null;
+    let player = "8-sinf";
+    let score = 0;
+    let completed = 0;
+    let taskResolved = false;
+
+    const $ = id => document.getElementById(id);
+
+    function shuffle(array) {
+      const result = [...array];
+
+      for (let i = result.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [result[i], result[j]] = [result[j], result[i]];
+      }
+
+      return result;
+    }
+
+    function startGame() {
+      player = $("playerInput").value.trim() || "8-sinf jamoasi";
+
+      deck = shuffle(tasks.map((task, index) => ({
+        ...task,
+        originalIndex: index
+      })));
+
+      used = new Set();
+      currentIndex = null;
+      score = 0;
+      completed = 0;
+      taskResolved = false;
+
+      $("startScreen").classList.add("hidden");
+      $("taskScreen").classList.add("hidden");
+      $("endScreen").classList.add("hidden");
+      $("boardScreen").classList.remove("hidden");
+
+      $("playerName").textContent = player;
+
+      renderCards();
+      updateStats();
+    }
+
+    function renderCards() {
+      const cards = $("cards");
+      cards.innerHTML = "";
+
+      deck.forEach((task, position) => {
+        const index = task.originalIndex;
+        const button = document.createElement("button");
+
+        button.className = "card" + (used.has(index) ? " used" : "");
+        button.disabled = used.has(index);
+        button.setAttribute("aria-label", used.has(index) ? `Kartochka ${position + 1}, ishlatildi` : `Kartochka ${position + 1}, tanlash`);
+
+        button.innerHTML = used.has(index)
+          ? `<span class="card-topline"><span>USTOZ SHOW</span><span>✓</span></span><span class="card-gem">✓</span><span class="card-number">${String(position + 1).padStart(2, "0")}</span><small>BAJARILDI</small>`
+          : `<span class="card-topline"><span>USTOZ SHOW</span><span>✦</span></span><span class="card-gem">✧</span><span class="card-number">${String(position + 1).padStart(2, "0")}</span><small>YASHIRIN TOPSHIRIQ</small>`;
+
+        button.onclick = () => chooseCard(index, position + 1);
+
+        cards.appendChild(button);
+      });
+    }
+
+    function chooseCard(index, number) {
+      if (used.has(index)) return;
+
+      currentIndex = index;
+      taskResolved = false;
+
+      const task = tasks[index];
+
+      $("boardScreen").classList.add("hidden");
+      $("taskScreen").classList.remove("hidden");
+
+      $("chosenNumber").textContent = "🎴 KARTOCHKA #" + number;
+      $("taskCounter").textContent = (completed + 1) + " / 24";
+      $("taskText").textContent = task.text;
+      $("feedback").textContent = "";
+      $("feedback").className = "feedback";
+      $("taskHint").textContent = task.hint || "";
+      $("options").innerHTML = "";
+      $("challengeActions").classList.add("hidden");
+      $("backBtn").disabled = true;
+
+      const type = $("taskType");
+
+      if (task.type === "question") {
+        type.textContent = "🧠 BILIM SAVOLI";
+        type.className = "task-type type-question";
+
+        task.options.forEach((option, i) => {
+          const button = document.createElement("button");
+          button.className = "option";
+          button.innerHTML = `<b>${String.fromCharCode(65 + i)}</b>${option}`;
+          button.onclick = () => answerQuestion(i);
+          $("options").appendChild(button);
+        });
+      } else {
+        type.textContent = "🎭 IJODIY SHART";
+        type.className = "task-type type-challenge";
+        $("challengeActions").classList.remove("hidden");
+      }
+    }
+
+    function answerQuestion(answerIndex) {
+      if (taskResolved) return;
+
+      taskResolved = true;
+
+      const task = tasks[currentIndex];
+      const buttons = [...$("options").children];
+      const correct = answerIndex === task.answer;
+
+      buttons.forEach((button, index) => {
+        button.disabled = true;
+
+        if (index === task.answer) button.classList.add("correct");
+        if (index === answerIndex && !correct) button.classList.add("wrong");
+      });
+
+      if (correct) {
+        score++;
+        $("feedback").textContent = "✅ To‘g‘ri! +1 ball. " + task.explanation;
+        $("feedback").classList.add("success");
+      } else {
+        $("feedback").textContent = "❌ Noto‘g‘ri javob. 0 ball. " + task.explanation;
+        $("feedback").classList.add("failure");
+      }
+
+      resolveTask();
+    }
+
+    function finishChallenge(success) {
+      if (taskResolved) return;
+
+      taskResolved = true;
+
+      if (success) {
+        score++;
+        $("feedback").textContent = "🎉 Shart bajarildi! +1 ball.";
+        $("feedback").classList.add("success");
+      } else {
+        $("feedback").textContent = "💪 Bu safar 0 ball. Kartochka ishlatildi, navbat keyingi ishtirokchiga!";
+        $("feedback").classList.add("failure");
+      }
+
+      $("challengeActions").classList.add("hidden");
+      resolveTask();
+    }
+
+    function resolveTask() {
+      used.add(currentIndex);
+      completed++;
+
+      updateStats();
+      $("backBtn").disabled = false;
+    }
+
+    function backToBoard() {
+      if (!taskResolved) return;
+
+      $("taskScreen").classList.add("hidden");
+      $("boardScreen").classList.remove("hidden");
+
+      if (used.size === tasks.length) {
+        showFinal();
+        return;
+      }
+
+      renderCards();
+    }
+
+    function updateStats() {
+      $("remaining").textContent = tasks.length - used.size;
+      $("done").textContent = completed;
+      $("score").textContent = score;
+    }
+
+    function showFinal() {
+      $("boardScreen").classList.add("hidden");
+      $("taskScreen").classList.add("hidden");
+      $("endScreen").classList.remove("hidden");
+
+      const percent = Math.round(score / tasks.length * 100);
+
+      $("finalMessage").textContent =
+        player + ", siz barcha 24 ta kartochkani ochdingiz!";
+
+      $("finalScore").textContent = score + " / 24";
+      $("finalPercent").textContent =
+        percent + "% natija — " +
+        (percent >= 90 ? "Ajoyib! 🏆" :
+          percent >= 70 ? "Juda yaxshi! 🌟" :
+            percent >= 50 ? "Yaxshi harakat! 👏" :
+              "Keyingi safar yanada yaxshi bo‘ladi! 💪");
+    }
+
+    function newGame() {
+      $("startScreen").classList.remove("hidden");
+      $("boardScreen").classList.add("hidden");
+      $("taskScreen").classList.add("hidden");
+      $("endScreen").classList.add("hidden");
+
+      $("playerInput").value = "";
+      $("remaining").textContent = "24";
+      $("done").textContent = "0";
+      $("score").textContent = "0";
+    }
+
+  </script>
+</body>
+
+</html>
